@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-	new_blockchain_db.py - BlockchainDB
+	blockchain_db.py - BlockchainDB
 	Author: Hoanh An (hoanhan@bennington.edu)
 	Date: 12/3/2017
 """
@@ -68,8 +68,8 @@ class BlockchainDB(object):
             'block_reward': self.calculate_block_reward(),
             'difficulty_bits': self.calculate_difficulty_bits(),
             'difficulty': self.calculate_difficulty(),
-            'elapsed_time': "%.4f seconds" % self.elapsed_time,
-            'hash_power': "%ld hashes per second" % self.hash_power
+            'elapsed_time': self.elapsed_time,  # seconds
+            'hash_power': self.hash_power       # hashes per second
         }
 
         # Reset the current list of transactions
@@ -261,7 +261,7 @@ class BlockchainDB(object):
         current_difficulty_bits = last_block['difficulty_bits']
         current_height = last_block['height']
 
-        # If the current height is divisible by 10,
+        # If the current height is divisible by n,
         # increase the difficulty exponentially by power of 2
         if current_height % difficulty_bits_block_rate == 0:
             current_difficulty_bits += 1
@@ -274,6 +274,7 @@ class BlockchainDB(object):
         Calculate the difficulty for the next mined block.
         For every n blocks, since the difficulty bits is increased by 1,
         the difficulty will increase exponentially by the number of 2.
+        :return: Int
         """
         last_block = self.get_last_block()
 
@@ -287,7 +288,7 @@ class BlockchainDB(object):
         current_difficulty = last_block['difficulty']
         current_height = last_block['height']
 
-        # If the current height is divisible by 10,
+        # If the current height is divisible by n,
         # increase the difficulty exponentially by power of 2
         if current_height % difficulty_block_rate == 0:
             current_difficulty_bits += 1
@@ -311,6 +312,28 @@ class BlockchainDB(object):
         """
         return self.blocks.find({}, {'_id': 0}).sort([('height', -1)]).limit(number)
 
+    def get_top_blocks(self, state, number):
+        """
+        Get a number of top blocks for a given state.
+        :return: List of blocks in dictionary
+        """
+        if state == 'difficulty':
+            return self.blocks.find({}, {'_id': 0}).sort([('difficulty', -1)]).limit(number)
+        elif state == 'elapsed_time':
+            return self.blocks.find({}, {'_id': 0}).sort([('elapsed_time', -1)]).limit(number)
+        elif state == 'block_reward':
+            return self.blocks.find({}, {'_id': 0}).sort([('block_reward', -1)]).limit(number)
+        elif state == 'hash_power':
+            return self.blocks.find({}, {'_id': 0}).sort([('hash_power', -1)]).limit(number)
+        elif state == 'height':
+            return self.blocks.find({}, {'_id': 0}).sort([('height', -1)]).limit(number)
+        elif state == 'nonce':
+            return self.blocks.find({}, {'_id': 0}).sort([('nonce', -1)]).limit(number)
+        elif state == 'number_of_transaction':
+            return self.blocks.find({}, {'_id': 0}).sort([('number_of_transaction', -1)]).limit(number)
+        else:
+            return []
+
     def get_last_block(self):
         """
         Get last block of the chain.
@@ -333,6 +356,10 @@ class BlockchainDB(object):
         return self.blocks.find_one({'height': height}, {'_id': 0})
 
     def get_all_blocks(self):
+        """
+        Get the full BlockChain.
+        :return: List of blocks in dictionary
+        """
         all_blocks = self.blocks.find({}, {'_id': 0})
         return all_blocks
 

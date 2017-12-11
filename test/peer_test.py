@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-	test_peer.py - Unit Test P2P Networking
+	peer_test.py - Unit Test P2P Networking
 	Author: Hoanh An (hoanhan@bennington.edu)
 	Date: 11/26/2017
 """

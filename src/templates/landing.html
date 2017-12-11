@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!--CSS starts-->
+    <style>
+        .card-block {
+          margin: 15px;
+        }
+    </style>
+
+    <!--CSS ends-->
+
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--Reload page every 60 secs-->
+    <meta http-equiv="refresh" content="120">
+
+    <title>Landing Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        $(function () {
+          $('[data-toggle="popover"]').popover({html:true})
+        })
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        {% if data %}
+            <div style="background-color: white; color: #4b4b4b;" class="jumbotron jumbotron-fluid">
+                <div style="padding: 0px;" class="container">
+                    <h1 class="display-4">{{data['header']}}</h1>
+                </div>
+            </div>
+        {% else %}
+            <div style="background-color: white; color: #4b4b4b;" class="jumbotron jumbotron-fluid">
+                <div style="padding: 0px;" class="container">
+                    <h1 class="display-4">No data</h1>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

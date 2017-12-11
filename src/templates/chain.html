@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!--Reload page every 60 secs-->
+    <!--Reload page every 120 secs-->
     <meta http-equiv="refresh" content="120">
 
     <title>Chain View</title>
@@ -39,11 +39,11 @@
 <body>
     <div class="container">
         {% if data %}
-        <div style="background-color: white; color: #4b4b4b;" class="jumbotron jumbotron-fluid">
-            <div style="padding: 0px;" class="container">
-                <h1 class="display-4">{{data['header']}}</h1>
+            <div style="background-color: white; color: #4b4b4b;" class="jumbotron jumbotron-fluid">
+                <div style="padding: 0px;" class="container">
+                    <h1 class="display-4">{{data['header']}}</h1>
+                </div>
             </div>
-        </div>
             {% for i in range(data['length'] - 1, -1, -1) %}
                 {% set chain = data['chain'][i] %}
                     <div class="card" style="width: 50rem;">

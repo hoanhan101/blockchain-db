@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 """
-	new_blockchain_db_server.py - BlockchainDB Server
+	blockchain_db_server.py - BlockchainDB Server
 	Author: Hoanh An (hoanhan@bennington.edu)
 	Date: 12/5/2017
 """
 
 from flask import Flask, jsonify, render_template
 
-from src.new_blockchain_db import BlockchainDB
+from src.blockchain_db import BlockchainDB
 
 app = Flask(__name__)
 
@@ -16,7 +16,10 @@ blockchain_db = BlockchainDB()
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    return jsonify(message="Welcome to BlockchainDB")
+    response = {
+        'header': 'Welcome to BlockchainDB'
+    }
+    return render_template('landing.html', data=response)
 
 @app.route('/view/chain', methods=['GET'])
 def view_blockchain():
@@ -32,7 +35,7 @@ def view_last_n_block(number):
     # Reverse order to display latest ones to oldest one
     temp = []
     blocks = blockchain_db.get_last_n_blocks(number)
-    for i in range(number, -1, -1):
+    for i in range(number - 1, -1, -1):
         temp.append(blocks[i])
 
     response = {
@@ -69,6 +72,36 @@ def view_block(number):
     }
     return render_template('chain.html', data=response)
 
+@app.route('/view/top/<int:number>/<string:state>', methods=['GET'])
+def view_top_blocks(number, state):
+    # Reverse order to display latest ones to oldest one
+    temp = []
+    blocks = blockchain_db.get_top_blocks(state=state, number=number)
+    for i in range(number - 1, -1, -1):
+        temp.append(blocks[i])
+
+    response = {
+        'chain': temp,
+        'length': number,
+        'header': 'Top {0} {1}'.format(number, state)
+    }
+    return render_template('chain.html', data=response)
+
+@app.route('/mine', methods=['GET'])
+def mine_a_block():
+    blockchain_db.mine_for_next_block()
+    response = {
+        'header': 'Successfully mined block {0}'.format(blockchain_db.get_length())
+    }
+    return render_template('landing.html', data=response)
+
+@app.route('/init', methods=['GET'])
+def init():
+    blockchain_db.generate_genesis_block()
+    response = {
+        'header': 'Successfully generate a genesis block'
+    }
+    return render_template('landing.html', data=response)
 
 if __name__ == '__main__':
     app.run()
