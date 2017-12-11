@@ -7,12 +7,14 @@
 	Date: 11/26/2017
 """
 
-from blockchain import Blockchain
-from uuid import uuid4
-from flask import Flask, jsonify, request, render_template
 from argparse import ArgumentParser
+from uuid import uuid4
 
-# Instantiate our Node
+from flask import Flask, jsonify, request, render_template
+
+from temp.blockchain import Blockchain
+
+# Instantiate our Node with Flask
 app = Flask(__name__)
 
 # Generate a globally unique address for this node
@@ -75,7 +77,7 @@ def mine():
     # Reward miner 1 coin
     blockchain.add_transaction(
         sender = 'Satoshi Nakamoto',
-        recipient = node_ID,
+        recipient = 'Hoanh An',
         amount = 1,
     )
 
@@ -137,4 +139,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
     port = args.port
 
-    app.run(host='0.0.0.0', port=port)
+    app.run(port=port)
