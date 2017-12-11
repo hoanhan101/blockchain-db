@@ -18,15 +18,16 @@ blockchain_db = BlockchainDB()
 def hello_world():
     return jsonify(message="Welcome to BlockchainDB")
 
-@app.route('/views/chain', methods=['GET'])
+@app.route('/view/chain', methods=['GET'])
 def view_blockchain():
     response = {
         'chain': blockchain_db.get_all_blocks(),
         'length': blockchain_db.get_length(),
+        'header': 'Full chain'
     }
     return render_template('chain.html', data=response)
 
-@app.route('/views/last_blocks/<int:number>', methods=['GET'])
+@app.route('/view/last_blocks/<int:number>', methods=['GET'])
 def view_last_n_block(number):
     # Reverse order to display latest ones to oldest one
     temp = []
@@ -37,16 +38,37 @@ def view_last_n_block(number):
     response = {
         'chain': temp,
         'length': number,
+        'header': 'Last {0} Blocks'.format(number)
     }
     return render_template('chain.html', data=response)
 
-@app.route('/views/last_block', methods=['GET'])
+@app.route('/view/last_block', methods=['GET'])
 def view_last_block():
     response = {
         'chain': [blockchain_db.get_last_block()],
         'length': 1,
+        'header': 'Last Block'
     }
     return render_template('chain.html', data=response)
+
+@app.route('/view/genesis_block', methods=['GET'])
+def view_genesis_block():
+    response = {
+        'chain': [blockchain_db.get_genesis_block()],
+        'length': 1,
+        'header': 'Genesis Block'
+    }
+    return render_template('chain.html', data=response)
+
+@app.route('/view/block/<int:number>', methods=['GET'])
+def view_block(number):
+    response = {
+        'chain': [blockchain_db.get_block(number)],
+        'length': 1,
+        'header': 'Block {0}'.format(number)
+    }
+    return render_template('chain.html', data=response)
+
 
 if __name__ == '__main__':
     app.run()

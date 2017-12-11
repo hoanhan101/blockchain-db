@@ -325,6 +325,13 @@ class BlockchainDB(object):
         """
         return self.blocks.find_one({'height': 1}, {'_id': 0})
 
+    def get_block(self, height):
+        """
+        Get a block given height number.
+        :return: Dictionary
+        """
+        return self.blocks.find_one({'height': height}, {'_id': 0})
+
     def get_all_blocks(self):
         all_blocks = self.blocks.find({}, {'_id': 0})
         return all_blocks

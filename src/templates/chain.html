@@ -38,12 +38,12 @@
 </head>
 <body>
     <div class="container">
+        {% if data %}
         <div style="background-color: white; color: #4b4b4b;" class="jumbotron jumbotron-fluid">
             <div style="padding: 0px;" class="container">
-                <h1 class="display-4">Latest Blocks</h1>
+                <h1 class="display-4">{{data['header']}}</h1>
             </div>
         </div>
-        {% if data %}
             {% for i in range(data['length'] - 1, -1, -1) %}
                 {% set chain = data['chain'][i] %}
                     <div class="card" style="width: 50rem;">
@@ -87,7 +87,11 @@
 
             {% endfor %}
         {% else %}
-          <h1>No data</h1>
+            <div style="background-color: white; color: #4b4b4b;" class="jumbotron jumbotron-fluid">
+                <div style="padding: 0px;" class="container">
+                    <h1 class="display-4">No data</h1>
+                </div>
+            </div>
         {% endif %}
     </div>
 
