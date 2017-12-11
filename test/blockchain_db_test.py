@@ -6,10 +6,11 @@
 	Date: 12/5/2017
 """
 
-from src.blockchain_db import BlockchainDB
 from pprint import pprint
-from uuid import uuid4
 from random import randint
+from uuid import uuid4
+
+from temp.blockchain_db import BlockchainDB
 
 if __name__ == '__main__':
     blockchain_db = BlockchainDB()

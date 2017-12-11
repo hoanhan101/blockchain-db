@@ -11,15 +11,19 @@ from pprint import pprint
 from uuid import uuid4
 from random import randint
 
+import random
+
 if __name__ == '__main__':
     blockchain_db = BlockchainDB()
 
-    number_of_loops = 1010
-    number_of_transactions = randint(1, 10)
 
+    """
+        Generate blocks
+    """
+    number_of_loops = 10
     for loop in range(number_of_loops):
-        for transaction in range(number_of_transactions):
-            blockchain_db.add_transaction(sender=(str(uuid4()).replace('-', '')), recipient=(str(uuid4()).replace('-', '')), amount=randint(1, 10))
+        for transaction in range(randint(1, 20)):
+            blockchain_db.add_transaction(sender=(str(uuid4()).replace('-', '')[:-10]), recipient=(str(uuid4()).replace('-', '')[:-10]), amount=round(random.uniform(1, 10), 2))
 
         blockchain_db.mine_for_next_block()
 

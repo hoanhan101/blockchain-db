@@ -142,8 +142,8 @@ class BlockchainDB(object):
         """
         # Assume the address of sender and recipient is fixed when mining a block
         reward = {
-            'sender': '000000000000000000000000000000x0',
-            'recipient': '000000000000000000000000000000x1',
+            'sender': '00000000000000000000x0',
+            'recipient': '00000000000000000000x1',
             'amount': self.calculate_block_reward()
         }
 

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 """
-	blockchain_db_server.py - BlockchainDB Server
+	new_blockchain_db_server.py - BlockchainDB Server
 	Author: Hoanh An (hoanhan@bennington.edu)
 	Date: 12/5/2017
 """
 
-from flask import Flask, jsonify, request, render_template
-from src.blockchain_db import BlockchainDB
+from flask import Flask, jsonify, render_template
 
+from src.new_blockchain_db import BlockchainDB
 
 app = Flask(__name__)
 
@@ -21,8 +21,22 @@ def hello_world():
 @app.route('/views/chain', methods=['GET'])
 def view_blockchain():
     response = {
-        'chain': blockchain_db.get_blockchain(),
+        'chain': blockchain_db.get_all_blocks(),
         'length': blockchain_db.get_length(),
+    }
+    return render_template('chain.html', data=response)
+
+@app.route('/views/last_blocks/<int:number>', methods=['GET'])
+def view_last_n_block(number):
+    # Reverse order to display latest ones to oldest one
+    temp = []
+    blocks = blockchain_db.get_last_n_blocks(number)
+    for i in range(number, -1, -1):
+        temp.append(blocks[i])
+
+    response = {
+        'chain': temp,
+        'length': number,
     }
     return render_template('chain.html', data=response)
 

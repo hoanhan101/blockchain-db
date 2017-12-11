@@ -15,46 +15,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--Reload page every 60 secs-->
-    <meta http-equiv="refresh" content="60">
+    <meta http-equiv="refresh" content="120">
 
     <title>Chain View</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        $(function () {
+          $('[data-toggle="popover"]').popover({html:true})
+        })
+    </script>
+
 </head>
 <body>
     <div class="container">
+        <div style="background-color: white; color: #4b4b4b;" class="jumbotron jumbotron-fluid">
+            <div style="padding: 0px;" class="container">
+                <h1 class="display-4">Latest Blocks</h1>
+            </div>
+        </div>
         {% if data %}
             {% for i in range(data['length'] - 1, -1, -1) %}
                 {% set chain = data['chain'][i] %}
                     <div class="card" style="width: 50rem;">
                         <div class="card-header" style="color: #ffffff; background-color: #333; border-color: #333;">
-                            <p> Block #{{chain['index']}} </p>
-                            <p> Previous Hash: {{chain['previous_hash']}} </p>
+                            <p> <strong>Block</strong> #{{chain['height']}} </p>
+                            <p style="margin: 0px;"> <strong>Previous Hash</strong>: {{chain['previous_hash']}} </p>
                         </div>
                         <div class="card-block">
-                            <p class="card-title">Timestamp: {{ chain['timestamp'] }}</p>
-                            <p class="card-text">Difficulty: TODO</p>
-                            <p class="card-text">Nonce: {{ chain['proof'] }}</p>
-                            <p class="card-text">Merkle Root: TODO</p>
+                            <p class="card-text"> <strong>Previous Block</strong>: {{chain['previous_block']}} </p>
+                            <p class="card-title"> <strong>Timestamp</strong>: {{chain['timestamp']}} </p>
+                            <p class="card-text"> <strong>Block Reward</strong>: {{chain['block_reward']}} </p>
+                            <p class="card-text"> <strong>Nonce</strong>: {{chain['nonce']}} </p>
+                            <p class="card-text"> <strong>Difficulty</strong>: {{chain['difficulty']}} </p>
+                            <p class="card-text"> <strong>Difficulty bits</strong>: {{chain['difficulty_bits']}} </p>
+                            <p class="card-text"> <strong>Elapsed time</strong>: {{chain['elapsed_time']}} </p>
+                            <p class="card-text"> <strong>Hash Power</strong>: {{chain['hash_power']}} </p>
+                            <p class="card-text"> <strong>Merkle Root</strong>: {{chain['merkle_root']}} </p>
                         </div>
                         <div class="card-footer text-muted">
-                            <p>List of transactions:</p>
+                            <p> <strong>List of <span class="badge badge-dark">{{chain['number_of_transaction']}}</span> transactions:</strong> </p>
                             <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                    <th scope="col">Sender</th>
-                                    <th scope="col">Recipient</th>
-                                    <th scope="col">Amount</th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     {% for transaction in chain['transactions'] %}
                                     <tr>
-                                      <td>{{transaction['sender']}}</td>
-                                      <td>{{transaction['recipient']}}</td>
-                                      <td>{{transaction['amount']}}</td>
+                                        <td data-toggle="popover" title="Details"
+                                            data-content="<p> <strong>From</strong>: {{transaction['transaction_info']['sender']}} </p>
+                                                          <p> <strong>To</strong>: {{transaction['transaction_info']['recipient']}} </p>
+                                                          <p> <strong>Amount</strong>: {{transaction['transaction_info']['amount']}} </p>">
+                                            {{transaction['transaction_id']}}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -63,20 +82,14 @@
                     </div>
 
                     <br>
+                    <br>
+                    <br>
 
             {% endfor %}
         {% else %}
           <h1>No data</h1>
         {% endif %}
     </div>
-
-    <div id="show" align="center"></div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 </body>
 </html>
