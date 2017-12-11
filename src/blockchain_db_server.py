@@ -16,6 +16,10 @@ blockchain_db = BlockchainDB()
 
 @app.route('/', methods=['GET'])
 def hello_world():
+    """
+    Welcome to Blockchain message
+    :return: HTML
+    """
     response = {
         'header': 'Welcome to BlockchainDB'
     }
@@ -23,6 +27,10 @@ def hello_world():
 
 @app.route('/view/chain', methods=['GET'])
 def view_blockchain():
+    """
+    View the full BlockChain.
+    :return: HTML
+    """
     response = {
         'chain': blockchain_db.get_all_blocks(),
         'length': blockchain_db.get_length(),
@@ -32,6 +40,11 @@ def view_blockchain():
 
 @app.route('/view/last_blocks/<int:number>', methods=['GET'])
 def view_last_n_block(number):
+    """
+    View the last number of mined blocks.
+    :param number: Number of blocks
+    :return: HTML
+    """
     # Reverse order to display latest ones to oldest one
     temp = []
     blocks = blockchain_db.get_last_n_blocks(number)
@@ -47,6 +60,10 @@ def view_last_n_block(number):
 
 @app.route('/view/last_block', methods=['GET'])
 def view_last_block():
+    """
+    View the last block.
+    :return: HTML
+    """
     response = {
         'chain': [blockchain_db.get_last_block()],
         'length': 1,
@@ -56,6 +73,10 @@ def view_last_block():
 
 @app.route('/view/genesis_block', methods=['GET'])
 def view_genesis_block():
+    """
+    View the genesis block.
+    :return: HTML
+    """
     response = {
         'chain': [blockchain_db.get_genesis_block()],
         'length': 1,
@@ -65,6 +86,11 @@ def view_genesis_block():
 
 @app.route('/view/block/<int:number>', methods=['GET'])
 def view_block(number):
+    """
+    View a specific block for a given height number.
+    :param number: Block height
+    :return: HTML
+    """
     response = {
         'chain': [blockchain_db.get_block(number)],
         'length': 1,
@@ -74,6 +100,12 @@ def view_block(number):
 
 @app.route('/view/top/<int:number>/<string:state>', methods=['GET'])
 def view_top_blocks(number, state):
+    """
+    View a number of top blocks for a given state.
+    :param number: Number of blocks
+    :param state: difficulty | elapsed_time | block_reward | hash_power | height | nonce | number_of_transaction
+    :return: HTML
+    """
     # Reverse order to display latest ones to oldest one
     temp = []
     blocks = blockchain_db.get_top_blocks(state=state, number=number)
@@ -89,6 +121,10 @@ def view_top_blocks(number, state):
 
 @app.route('/mine', methods=['GET'])
 def mine_a_block():
+    """
+    Mine a block.
+    :return: HTML
+    """
     blockchain_db.mine_for_next_block()
     response = {
         'header': 'Successfully mined block {0}'.format(blockchain_db.get_length())
@@ -97,6 +133,10 @@ def mine_a_block():
 
 @app.route('/init', methods=['GET'])
 def init():
+    """
+    Create a genesis block.
+    :return: HTML
+    """
     blockchain_db.generate_genesis_block()
     response = {
         'header': 'Successfully generate a genesis block'
