@@ -1,21 +1,20 @@
 # BlockchainDB
-Blockchain built on top of MongoDB.
+Blockchain + MongdoDB = BlockchainDB
 
 ## Design
 
 ### `blockchain_db.py`
-Main BlockchainDB's logic, using `MongoClient`.
+This file contains the main BlockchainDB's logic. I am using `pymongo` to connect with mongodb
+database named `blockchain` and the `block` collection. Whenever a new bock is mined, it will
+write to the database.  
 
 #### Main methods
 - `generate_genesis_block(self)`
-- `generate_next_block(self, nonce, previous_hash=None)`
 - `generate_next_block(self, nonce, previous_hash=None)`
 - `add_transaction(self, sender, recipient, amount)`
 - `find_merkle_root(self, transaction_ids)`
 - `mine_for_next_block(self)`
 - `calculate_nonce(self, last_block, number_of_bits)`
-
-#### Helper functions
 - `calculate_block_reward(self)`
 - `calculate_difficulty_bits(self)`
 - `calculate_difficulty(self)`
@@ -33,25 +32,37 @@ Main BlockchainDB's logic, using `MongoClient`.
 - `get_transaction_ids(self)`
 
 ### `blockchain_db_server.py`
-Server as a web page using `Flask`.
+This file use `Flask` to server as a web page. 
 
-### APIs
+### Available endpoints
+- Drop the database and create a genesis block: `/reset`
+- Mine a number of blocks over network: `/mine/<int:number>`
 - View the full BlockChain: `/view/chain`
 - View some number of last mined blocks: `/view/last_blocks/<int:number>`
 - View the last mined block: `/view/last_block`
 - View the genesis block: `/view/genesis_block`
 - View a specific block: `/view/block/<int:number>`
 - View top numbers of blocks for a given state:`/view/top/<int:number>/<string:state>`
-- Mine a block over network: `/mine`
-- Docker WIP: `/init`
-
 
 ## Docker
 - Work in process
 
 ## How to test
-- Use `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
-- Create a genesis block first, can uncomment and execute line 42 `self.generate_genesis_block()` in `blockchain_db.py`
-to do the trick. **Remember to uncomment before the second run if you do this!** Otherwise you would not run.
-- *TODO: FInd better way for to handle this. Probably along with Docker.*
-- Run `blockchain_db_server.py` to serve as a web page and try out different endpoints. 
+#### Option 1: With networking.
+- Start `blockchain_db_server.py` as a starting web page.
+- Go to `/reset` to create a genesis block. This endpoints can also be used to drop the database
+and start over whenever you want to.
+- Mine some blocks at `/mine/<int:number>`
+- Use available `/view` endpoints as mentioned above for visualization.
+
+#### Option 2: Without networking.
+- Start `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
+- Execute `reset()` only once when you start to drop the old database and create a genesis block.
+- Comment it out after the second run and try to mine some blocks with the testing script.
+- Start `blockchain_db_server.py` to serve as a web page and view the result on the web or just
+print it our using the console.  
+
+# TODO
+- Dockerize everything
+- Introduce networking with multiple nodes. For now, it only works with one node, which is
+the local host.
