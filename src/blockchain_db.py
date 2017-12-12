@@ -25,9 +25,6 @@ class BlockchainDB(object):
         # Connect to blockchain database
         self.db = self.client.blockchain
 
-        # Drop
-        # self.db.blocks.drop()
-
         # Use the blocks collection
         self.blocks = self.db.blocks
 
@@ -38,8 +35,14 @@ class BlockchainDB(object):
         self.elapsed_time = 0
         self.hash_power = 0
 
-        # Create a genesis block, only runs once time when creating a database
-        # self.generate_genesis_block()
+    def reset(self):
+        """
+        Drop the database and start all over again by creating the genesis block.
+        Run once when start, or whenever you feel like dropping!
+        :return: None
+        """
+        self.db.blocks.drop()
+        self.generate_genesis_block()
 
     def generate_genesis_block(self):
         """
