@@ -1,5 +1,5 @@
 # BlockchainDB
-Blockchain + MongdoDB = BlockchainDB
+Blockchain + MongoDB = BlockchainDB
 
 ## Design
 
@@ -9,27 +9,27 @@ database named `blockchain` and the `block` collection. Whenever a new bock is m
 write to the database.  
 
 #### Main methods
-- `generate_genesis_block(self)`
-- `generate_next_block(self, nonce, previous_hash=None)`
-- `add_transaction(self, sender, recipient, amount)`
-- `find_merkle_root(self, transaction_ids)`
-- `mine_for_next_block(self)`
-- `calculate_nonce(self, last_block, number_of_bits)`
-- `calculate_block_reward(self)`
-- `calculate_difficulty_bits(self)`
-- `calculate_difficulty(self)`
-- `hash_json_object(self, json_object)`
-- `hash_string_pair(self, string_1, string_2)`
+- `generate_genesis_block()`
+- `generate_next_block(nonce, previous_hash=None)`
+- `add_transaction(sender, recipient, amount)`
+- `find_merkle_root(transaction_ids)`
+- `mine_for_next_block()`
+- `calculate_nonce(last_block, number_of_bits)`
+- `calculate_block_reward()`
+- `calculate_difficulty_bits()`
+- `calculate_difficulty()`
+- `hash_json_object(json_object)`
+- `hash_string_pair(string_1, string_2)`
 
 #### `GET`
-- `get_length(self)`
-- `get_last_n_blocks(self, number)`
-- `get_top_blocks(self, state, number)`
-- `get_last_block(self)`
-- `get_genesis_block(self)`
-- `get_block(self, height)`
-- `get_all_blocks(self)`
-- `get_transaction_ids(self)`
+- `get_length()`
+- `get_last_n_blocks(number)`
+- `get_top_blocks(state, number)`
+- `get_last_block()`
+- `get_genesis_block()`
+- `get_block(height)`
+- `get_all_blocks()`
+- `get_transaction_ids()`
 
 ### `blockchain_db_server.py`
 This file use `Flask` to server as a web page. 
