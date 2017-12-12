@@ -19,6 +19,6 @@ WORKDIR /src
 
 EXPOSE 5000
 
-ENV FLASK_APP=new_blockchain_db_server.py
+ENV FLASK_APP=blockchain_db_server.py
 
 CMD /usr/local/bin/flask run --host=0.0.0.0
