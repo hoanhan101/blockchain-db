@@ -10,7 +10,7 @@ import hashlib
 import json
 from time import time, ctime
 from pymongo import MongoClient
-from src.constant import *
+from constant import *
 
 class BlockchainDB(object):
     def __init__(self, IP=mongodb_IP, port=mongodb_port):

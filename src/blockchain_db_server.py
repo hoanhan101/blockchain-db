@@ -11,7 +11,7 @@ from uuid import uuid4
 from random import randint
 import random
 
-from src.blockchain_db import BlockchainDB
+from blockchain_db import BlockchainDB
 
 app = Flask(__name__)
 
@@ -55,7 +55,6 @@ def mine_blocks(number):
                                           recipient=(str(uuid4()).replace('-', '')[:-10]),
                                           amount=round(random.uniform(1, 10), 2))
         blockchain_db_manager.mine_for_next_block()
-        print('block {0}'.format(i))
 
     response = {
         'header': 'Successfully mined {0} blocks'.format(number)
