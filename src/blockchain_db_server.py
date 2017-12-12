@@ -7,12 +7,15 @@
 """
 
 from flask import Flask, jsonify, render_template
+from uuid import uuid4
+from random import randint
+import random
 
 from src.blockchain_db import BlockchainDB
 
 app = Flask(__name__)
 
-blockchain_db = BlockchainDB()
+blockchain_db_manager = BlockchainDB()
 
 @app.route('/', methods=['GET'])
 def hello_world():
@@ -25,6 +28,41 @@ def hello_world():
     }
     return render_template('landing.html', data=response)
 
+@app.route('/reset', methods=['GET'])
+def reset():
+    """
+    Drop the database and start all over again by creating the genesis block.
+    Run once when start, or whenever you feel like dropping!
+    :return: HTML
+    """
+    blockchain_db_manager.reset()
+    response = {
+        'header': 'Successfully generated a genesis block'
+    }
+    return render_template('landing.html', data=response)
+
+@app.route('/mine/<int:number>', methods=['GET'])
+def mine_blocks(number):
+    """
+    Mine for a some number of blocks with random generated transactions.
+    :return: HTML
+    """
+    transactions_range = randint(1, 10)
+
+    for i in range(number):
+        for transaction in range(transactions_range):
+            blockchain_db_manager.add_transaction(sender=(str(uuid4()).replace('-', '')[:-10]),
+                                          recipient=(str(uuid4()).replace('-', '')[:-10]),
+                                          amount=round(random.uniform(1, 10), 2))
+        blockchain_db_manager.mine_for_next_block()
+        print('block {0}'.format(i))
+
+    response = {
+        'header': 'Successfully mined {0} blocks'.format(number)
+    }
+
+    return render_template('landing.html', data=response)
+
 @app.route('/view/chain', methods=['GET'])
 def view_blockchain():
     """
@@ -32,8 +70,8 @@ def view_blockchain():
     :return: HTML
     """
     response = {
-        'chain': blockchain_db.get_all_blocks(),
-        'length': blockchain_db.get_length(),
+        'chain': blockchain_db_manager.get_all_blocks(),
+        'length': blockchain_db_manager.get_length(),
         'header': 'Full chain'
     }
     return render_template('chain.html', data=response)
@@ -47,7 +85,7 @@ def view_last_n_block(number):
     """
     # Reverse order to display latest ones to oldest one
     temp = []
-    blocks = blockchain_db.get_last_n_blocks(number)
+    blocks = blockchain_db_manager.get_last_n_blocks(number)
     for i in range(number - 1, -1, -1):
         temp.append(blocks[i])
 
@@ -65,7 +103,7 @@ def view_last_block():
     :return: HTML
     """
     response = {
-        'chain': [blockchain_db.get_last_block()],
+        'chain': [blockchain_db_manager.get_last_block()],
         'length': 1,
         'header': 'Last Block'
     }
@@ -78,7 +116,7 @@ def view_genesis_block():
     :return: HTML
     """
     response = {
-        'chain': [blockchain_db.get_genesis_block()],
+        'chain': [blockchain_db_manager.get_genesis_block()],
         'length': 1,
         'header': 'Genesis Block'
     }
@@ -92,7 +130,7 @@ def view_block(number):
     :return: HTML
     """
     response = {
-        'chain': [blockchain_db.get_block(number)],
+        'chain': [blockchain_db_manager.get_block(number)],
         'length': 1,
         'header': 'Block {0}'.format(number)
     }
@@ -108,7 +146,7 @@ def view_top_blocks(number, state):
     """
     # Reverse order to display latest ones to oldest one
     temp = []
-    blocks = blockchain_db.get_top_blocks(state=state, number=number)
+    blocks = blockchain_db_manager.get_top_blocks(state=state, number=number)
     for i in range(number - 1, -1, -1):
         temp.append(blocks[i])
 
@@ -118,30 +156,6 @@ def view_top_blocks(number, state):
         'header': 'Top {0} {1}'.format(number, state)
     }
     return render_template('chain.html', data=response)
-
-@app.route('/mine', methods=['GET'])
-def mine_a_block():
-    """
-    Mine a block.
-    :return: HTML
-    """
-    blockchain_db.mine_for_next_block()
-    response = {
-        'header': 'Successfully mined block {0}'.format(blockchain_db.get_length())
-    }
-    return render_template('landing.html', data=response)
-
-@app.route('/init', methods=['GET'])
-def init():
-    """
-    Create a genesis block.
-    :return: HTML
-    """
-    blockchain_db.generate_genesis_block()
-    response = {
-        'header': 'Successfully generate a genesis block'
-    }
-    return render_template('landing.html', data=response)
 
 if __name__ == '__main__':
     app.run()
