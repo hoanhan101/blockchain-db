@@ -62,7 +62,7 @@ and start over whenever you want to.
 - Start `blockchain_db_server.py` to serve as a web page and view the result on the web or just
 print it our using the console.  
 
-# TODO
+## TODO
 - Dockerize everything
 - Introduce networking with multiple nodes. For now, it only works with one node, which is
 the local host.
