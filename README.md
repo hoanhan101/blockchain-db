@@ -32,7 +32,7 @@ write to the database.
 - `get_transaction_ids()`
 
 ### `blockchain_db_server.py`
-This file use `Flask` to server as a web page. 
+This use `Flask` to serve as a web page. 
 
 ### Available endpoints
 - Drop the database and create a genesis block: `/reset`
@@ -43,9 +43,6 @@ This file use `Flask` to server as a web page.
 - View the genesis block: `/view/genesis_block`
 - View a specific block: `/view/block/<int:number>`
 - View top numbers of blocks for a given state:`/view/top/<int:number>/<string:state>`
-
-## Docker
-- Work in process
 
 ## How to test
 #### Option 1: With networking.
@@ -60,9 +57,14 @@ and start over whenever you want to.
 - Execute `reset()` only once when you start to drop the old database and create a genesis block.
 - Comment it out after the second run and try to mine some blocks with the testing script.
 - Start `blockchain_db_server.py` to serve as a web page and view the result on the web or just
-print it our using the console.  
+print it using the console.  
+
+## Docker
+- Work in process. Having difficulty connecting to mongodb database.
 
 ## TODO
 - Dockerize everything
 - Introduce networking with multiple nodes. For now, it only works with one node, which is
 the local host.
+- Introduce Wallet
+- Introduct attack.
