@@ -13,14 +13,14 @@ from pymongo import MongoClient
 from constant import *
 
 class BlockchainDB(object):
-    def __init__(self, IP=mongodb_IP, port=mongodb_port):
+    def __init__(self):
         """
         Initialize a chain of block, aka BlockChain.
         :param IP: IP
         :param port: Port
         """
         # Setup MongoClient
-        self.client = MongoClient(IP, port)
+        self.client = MongoClient('mongodb://127.0.0.1:27017')
 
         # Connect to blockchain database
         self.db = self.client.blockchain
