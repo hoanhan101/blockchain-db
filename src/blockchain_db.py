@@ -32,8 +32,9 @@ class BlockchainDB(object):
         # only write to database when miner successfully mine a new block
         self.transactions = []
 
-        self.elapsed_time = 0
-        self.hash_power = 0
+        # Reset elapsed time and hash power to 0
+        self.elapsed_time = 0   # seconds
+        self.hash_power = 0     # hashes per second
 
     def reset(self):
         """
@@ -71,8 +72,8 @@ class BlockchainDB(object):
             'block_reward': self.calculate_block_reward(),
             'difficulty_bits': self.calculate_difficulty_bits(),
             'difficulty': self.calculate_difficulty(),
-            'elapsed_time': self.elapsed_time,  # seconds
-            'hash_power': self.hash_power       # hashes per second
+            'elapsed_time': self.elapsed_time,
+            'hash_power': self.hash_power
         }
 
         # Reset the current list of transactions
@@ -90,8 +91,8 @@ class BlockchainDB(object):
         Add a new transaction to the block.
         :param sender: Address of Sender
         :param recipient: Address of Recipient
-        :param amount: Amount of coin
-        :return: Index of the next mined block
+        :param amount: Amount of tokens
+        :return: None
         """
         # Prepare the transaction information
         transaction_info = {
@@ -150,9 +151,11 @@ class BlockchainDB(object):
             'amount': self.calculate_block_reward()
         }
 
+        # Get the last block
         last_block = self.get_last_block()
         last_difficulty_bits = last_block['difficulty_bits']
 
+        # Set timer to calculate the time it takes for mining a block
         start_time = time()
 
         # Find nonce for the next block, given the last block and level of difficulty
@@ -225,10 +228,11 @@ class BlockchainDB(object):
         Cut reward by half for every n blocks, until it eventually reduces to 0.
         :return: Int
         """
+        # Get the last block
         last_block = self.get_last_block()
 
-        # If we don't have any block yet, meaning that we are creating the genesis block
-        # set the block reward to 50
+        # If we don't have any block yet, it means that we are creating the genesis block
+        # Return the init_reward = 50
         if last_block == None:
             return init_reward
 
@@ -253,10 +257,11 @@ class BlockchainDB(object):
         For every n blocks, increase the difficulty bits by 1.
         :return: Int
         """
+        # Get the last block
         last_block = self.get_last_block()
 
-        # If we don't have any block yet, meaning that we are creating the genesis block
-        # set the difficulty bits to 0
+        # If we don't have any block yet, it means that we are creating the genesis block
+        # Set the difficulty bits to 0
         if last_block == None:
             return 0
 
@@ -279,10 +284,11 @@ class BlockchainDB(object):
         the difficulty will increase exponentially by the number of 2.
         :return: Int
         """
+        # Get the last block
         last_block = self.get_last_block()
 
-        # If we don't have any block yet, meaning that we are creating the genesis block
-        # set the difficulty to 1
+        # If we don't have any block yet, it means that we are creating the genesis block
+        # Set the difficulty to 1
         if last_block == None:
             return 1
 
@@ -318,7 +324,7 @@ class BlockchainDB(object):
     def get_top_blocks(self, state, number):
         """
         Get a number of top blocks for a given state.
-        :return: List of blocks in dictionary
+        :return: List of blocks in dictionary format
         """
         if state == 'difficulty':
             return self.blocks.find({}, {'_id': 0}).sort([('difficulty', -1)]).limit(number)
