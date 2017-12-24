@@ -1,5 +1,5 @@
-# HBlockchainDB
-Blockchain + MongoDB = HBlockchainDB
+# HBlockchain
+Blockchain + MongoDB = HBlockchain
 
 ## Design
 
