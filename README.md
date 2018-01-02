@@ -1,5 +1,5 @@
 # blockchain-db
-Blockchain + MongoDB = HBlockchain
+Blockchain + MongoDB = BlockchainDB, aka blockchain-db
 
 ## Design
 
