@@ -1,4 +1,4 @@
-# HBlockchain
+# blockchain-db
 Blockchain + MongoDB = HBlockchain
 
 ## Design
