@@ -1,12 +1,15 @@
 # blockchain-db
 Blockchain + MongoDB = BlockchainDB, aka blockchain-db
 
+
 ## Design
+
 
 ### `blockchain_db.py`
 This file contains the main BlockchainDB's logic. I am using `pymongo` to connect with mongodb
 database named `blockchain` and the `block` collection. Whenever a new bock is mined, it will
 write to the database.  
+
 
 #### Main methods
 - `generate_genesis_block()`
@@ -21,6 +24,7 @@ write to the database.
 - `hash_json_object(json_object)`
 - `hash_string_pair(string_1, string_2)`
 
+
 #### `GET`
 - `get_length()`
 - `get_last_n_blocks(number)`
@@ -31,26 +35,34 @@ write to the database.
 - `get_all_blocks()`
 - `get_transaction_ids()`
 
+
 ### `blockchain_db_server.py`
 This use `Flask` to serve as a web page. 
 
-### Available endpoints
-- Drop the database and create a genesis block: `/reset`
-- Mine a number of blocks over network: `/mine/<int:number>`
-- View the full BlockChain: `/view/chain`
-- View some number of last mined blocks: `/view/last_blocks/<int:number>`
-- View the last mined block: `/view/last_block`
-- View the genesis block: `/view/genesis_block`
-- View a specific block: `/view/block/<int:number>`
-- View top numbers of blocks for a given state:`/view/top/<int:number>/<string:state>`
+
+### APIs
+Endpoint | Description
+--- | ---
+`/reset` | Drop the database and create a genesis block
+`/mine/<int:number>` | Mine a number of blocks over network
+`/view/chain` | View the full BlockChain
+`/view/last_blocks/<int:number>` | View some number of last mined blocks
+`/view/last_block` | View the last mined block 
+`/view/genesis_block` | View the genesis block
+`/view/block/<int:number>` | View a specific block
+`/view/top/<int:number>/<string:state>` | View top numbers of blocks for a given state
+
 
 ## How to test
+
+
 #### Option 1: With networking.
 - Start `blockchain_db_server.py` as a starting web page.
 - Go to `/reset` to create a genesis block. This endpoints can also be used to drop the database
 and start over whenever you want to.
 - Mine some blocks at `/mine/<int:number>`
 - Use available `/view` endpoints as mentioned above for visualization.
+
 
 #### Option 2: Without networking.
 - Start `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
@@ -59,8 +71,11 @@ and start over whenever you want to.
 - Start `blockchain_db_server.py` to serve as a web page and view the result on the web or just
 print it using the console.  
 
+
 ## Docker
 - Work in process. Having difficulty connecting to mongodb database.
+
+
 
 ## TODO
 - Dockerize everything
