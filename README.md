@@ -9,7 +9,7 @@ database named `blockchain` and the `block` collection. Whenever a new bock is m
 write to the database.  
 
 #### Block structure
-```JSON
+```python3
 block = {
     "previous_block": str,
     'height': int,
@@ -27,7 +27,7 @@ block = {
 }
 ```
 
-#### Here are the main methods, details are well documented in doctrings.
+#### Here are the main methods. Details are well documented in doctrings.
 - `generate_genesis_block()`
 - `generate_next_block(nonce, previous_hash=None)`
 - `add_transaction(sender, recipient, amount)`
