@@ -1,17 +1,33 @@
 # blockchain-db
 Blockchain + MongoDB = BlockchainDB, aka blockchain-db
 
-
-## Design
-
+## Files and structure
 
 ### `blockchain_db.py`
 This file contains the main BlockchainDB's logic. I am using `pymongo` to connect with mongodb
 database named `blockchain` and the `block` collection. Whenever a new bock is mined, it will
 write to the database.  
 
+#### Block structure
+```JSON
+block = {
+    "previous_block": str,
+    'height': int,
+    'timestamp': unix time,
+    'transactions': list,
+    "merkle_root": str,
+    'number_of_transaction': int,
+    'nonce': int,
+    'previous_hash': str,
+    'block_reward': int,
+    'difficulty_bits': int,
+    'difficulty': int,
+    'elapsed_time': int,
+    'hash_power': int 
+}
+```
 
-#### Main methods
+#### Here are the main methods, details are well documented in doctrings.
 - `generate_genesis_block()`
 - `generate_next_block(nonce, previous_hash=None)`
 - `add_transaction(sender, recipient, amount)`
@@ -24,8 +40,7 @@ write to the database.
 - `hash_json_object(json_object)`
 - `hash_string_pair(string_1, string_2)`
 
-
-#### `GET`
+#### Supported GET methods
 - `get_length()`
 - `get_last_n_blocks(number)`
 - `get_top_blocks(state, number)`
@@ -35,10 +50,8 @@ write to the database.
 - `get_all_blocks()`
 - `get_transaction_ids()`
 
-
 ### `blockchain_db_server.py`
-This use `Flask` to serve as a web page. 
-
+This file uses `Flask` to serve as a web page. 
 
 ### APIs
 Endpoint | Description
@@ -52,34 +65,27 @@ Endpoint | Description
 `/view/block/<int:number>` | View a specific block
 `/view/top/<int:number>/<string:state>` | View top numbers of blocks for a given state
 
-
-## How to test
-
+## Usage
 
 #### Option 1: With networking.
-- Start `blockchain_db_server.py` as a starting web page.
-- Go to `/reset` to create a genesis block. This endpoints can also be used to drop the database
+- In `src`, start `blockchain_db_server.py` and visit `localhost:5000`
+- Hit `/reset` endpoint to create a genesis block. This endpoints can also be used to drop the database
 and start over whenever you want to.
-- Mine some blocks at `/mine/<int:number>`
-- Use available `/view` endpoints as mentioned above for visualization.
-
+- Mine some number of blocks at `/mine/<int:number>`
+- Use available `/view` endpoints as mentioned above for more details.
 
 #### Option 2: Without networking.
-- Start `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
+- In `test`, start `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
 - Execute `reset()` only once when you start to drop the old database and create a genesis block.
-- Comment it out after the second run and try to mine some blocks with the testing script.
-- Start `blockchain_db_server.py` to serve as a web page and view the result on the web or just
-print it using the console.  
-
+- Comment it out after the second run and try to mine some blocks with the provided testing script.
+- Similar to the first option, start `blockchain_db_server.py` in `src` to serve as a web page and view the result on the web
+or just print it using the console.  
 
 ## Docker
 - Work in process. Having difficulty connecting to mongodb database.
 
-
-
 ## TODO
 - Dockerize everything
-- Introduce networking with multiple nodes. For now, it only works with one node, which is
-the local host.
+- Introduce networking with multiple nodes. For now, it only works with one node, which is the local host.
 - Introduce Wallet
 - Introduct attack.
