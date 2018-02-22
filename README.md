@@ -11,19 +11,19 @@ write to the database.
 #### Block structure
 ```python3
 block = {
-    "previous_block": str,
-    'height': int,
-    'timestamp': unix time,
-    'transactions': list,
-    "merkle_root": str,
-    'number_of_transaction': int,
-    'nonce': int,
-    'previous_hash': str,
-    'block_reward': int,
-    'difficulty_bits': int,
-    'difficulty': int,
-    'elapsed_time': int,
-    'hash_power': int 
+    "previous_block": <str>,
+    'height': <int>,
+    'timestamp': <unix time>,
+    'transactions': <list>,
+    "merkle_root": <str>,
+    'number_of_transaction': <int>,
+    'nonce': <int>,
+    'previous_hash': <str>,
+    'block_reward': <int>,
+    'difficulty_bits': <int>,
+    'difficulty': <int>,
+    'elapsed_time': <int>,
+    'hash_power': <int>
 }
 ```
 
