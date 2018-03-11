@@ -1,7 +1,7 @@
 # blockchain-db
 > Blockchain + MongoDB = BlockchainDB, aka blockchain-db
 
-This is an implementation of Blockchain. It uses MongoDB as a database
+**blockchain-db** is Blockchain's implementation. It uses MongoDB as a database
 management system to store blocks' metadata. Other interesting technical
 details such as merkle tree, nonce, difficulty, and transactions are also
 implemented and documented in the source code.
