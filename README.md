@@ -13,20 +13,20 @@ It is done for the most part. See [TODO](#todo) for future implementations.
 
 ## Table of Contents
 - [Files and structure](#files-and-structure)
-  - [`blockchain_db.py`](#blockchain_db.py)
+  - [blockchain_db.py](#blockchain_db.py)
     - [Block structure](#block-structure)
-    - Methods
-  - [`blockchain_db_server.py`](#blockchain_db_server.py)
+    - [Methods](#methods)
+  - [blockchain_db_server.py](#blockchain_db_server.py)
     - [API](#api)
 - [Usage](#usage)
-  - With networking
-  - Without networking
+  - [With networking](#with-networking)
+  - [Without networking](#without-networking)
 - [Docker](#docker)
 - [TODO](#todo)
 
 ## Files and structure
 
-### `blockchain_db.py`
+### blockchain_db.py
 This file contains the main BlockchainDB's logic. I am using `pymongo` to connect with mongodb
 database named `blockchain` and the `block` collection. Whenever a new bock is mined, it will
 write to the database.  
@@ -50,7 +50,7 @@ block = {
 }
 ```
 
-#### Here are the main methods. Details are well documented in doctrings.
+#### Here are the main [methods](#methods). Details are well documented in doctrings.
 - `generate_genesis_block()`
 - `generate_next_block(nonce, previous_hash=None)`
 - `add_transaction(sender, recipient, amount)`
@@ -73,8 +73,8 @@ block = {
 - `get_all_blocks()`
 - `get_transaction_ids()`
 
-### `blockchain_db_server.py`
-This file uses `Flask` to serve as a web page. 
+### blockchain_db_server.py
+This file uses *Flask* to serve as a web page. 
 
 #### APIs
 Endpoint | Description
@@ -90,14 +90,14 @@ Endpoint | Description
 
 ## Usage
 
-#### Option 1: With networking.
+#### Option 1: [With networking](#with-networking).
 - In `src`, start `blockchain_db_server.py` and visit `localhost:5000`
 - Hit `/reset` endpoint to create a genesis block. This endpoints can also be used to drop the database
 and start over whenever you want to.
 - Mine some number of blocks at `/mine/<int:number>`
 - Use available `/view` endpoints as mentioned above for more details.
 
-#### Option 2: Without networking.
+#### Option 2: [Without networking](#without-networking).
 - In `test`, start `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
 - Execute `reset()` only once when you start to drop the old database and create a genesis block.
 - Comment it out after the second run and try to mine some blocks with the provided testing script.
@@ -105,10 +105,10 @@ and start over whenever you want to.
 or just print it using the console.  
 
 ## Docker
-- Work in process. Having difficulty connecting to mongodb database.
+- This is a work in progress. Currently having difficulty connecting to mongodb database.
 
 ## TODO
 - Dockerize everything
 - Introduce networking with multiple nodes. For now, it only works with one node, which is the local host.
 - Introduce Wallet
-- Introduct attack.
+- Introduct Attack.
