@@ -14,11 +14,12 @@ It is done for the most part. See [TODO](#todo) for future implementations.
 ## Table of Contents
 
 - [Files and structure](#files-and-structure)
-  - [blockchain_db.py](#blockchain_db.py)
+  - [blockchain_db.py](#blockchain_dbpy)
     - [Block structure](#block-structure)
     - [Methods](#methods)
-  - [blockchain_db_server.py](#blockchain_db_server.py)
-    - [APIs](#APIs)
+    - [GET methods](#get-methods)
+  - [blockchain_db_server.py](#blockchain_db_serverpy)
+    - [APIs](#apis)
 - [Usage](#usage)
   - [With networking](#with-networking)
   - [Without networking](#without-networking)
