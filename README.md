@@ -1,4 +1,5 @@
 # blockchain-db
+
 > Blockchain + MongoDB = BlockchainDB, aka blockchain-db
 
 **blockchain-db** is Blockchain's implementation. It uses MongoDB as a database
@@ -6,6 +7,22 @@ management system to store blocks' metadata. Other interesting technical
 details such as merkle tree, nonce, difficulty, and transactions are also
 implemented and documented in the source code.
 
+## Project Status
+
+It is done for the most part. See [TODO](#TODO) for future implementations.
+
+## Table of Contents
+- [Files and structure](#files-and-structure)
+  - [`blockchain_db.py`](#blockchain_db.py)
+    - [Block structure](#block-structure)
+    - [Methods](#methods)
+  - [`blockchain_db_server.py`](#blockchain_db_server.py)
+    - [API](#api)
+- [Usage](#usage)
+  - [With networking](#with-netwokring)
+  - [Without networking](#without-netwokring)
+- [Docker](#docker)
+- [TODO](#TODO)
 
 ## Files and structure
 
@@ -59,7 +76,7 @@ block = {
 ### `blockchain_db_server.py`
 This file uses `Flask` to serve as a web page. 
 
-### APIs
+#### APIs
 Endpoint | Description
 --- | ---
 `/reset` | Drop the database and create a genesis block
