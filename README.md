@@ -9,20 +9,20 @@ implemented and documented in the source code.
 
 ## Project Status
 
-It is done for the most part. See [TODO](#TODO) for future implementations.
+It is done for the most part. See [TODO](#todo) for future implementations.
 
 ## Table of Contents
 - [Files and structure](#files-and-structure)
   - [`blockchain_db.py`](#blockchain_db.py)
     - [Block structure](#block-structure)
-    - [Methods](#methods)
+    - Methods
   - [`blockchain_db_server.py`](#blockchain_db_server.py)
     - [API](#api)
 - [Usage](#usage)
-  - [With networking](#with-netwokring)
-  - [Without networking](#without-netwokring)
+  - With networking
+  - Without networking
 - [Docker](#docker)
-- [TODO](#TODO)
+- [TODO](#todo)
 
 ## Files and structure
 
