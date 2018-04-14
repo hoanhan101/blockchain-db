@@ -9,7 +9,14 @@ implemented and documented in the source code.
 
 ## Project Status
 
-It is done for the most part. See [TODO](#todo) for future implementations.
+It is done for the most part. Below are ideas for future implementations.
+
+### Ideas
+
+- [ ] Docker: Currently having difficulty connecting to mongodb database.
+- [ ] Introduce networking with multiple nodes. For now, it only works with one node, which is the local host.
+- [ ] Introduce Wallet
+- [ ] Introduct Attack.
 
 ## Table of Contents
 
@@ -23,8 +30,6 @@ It is done for the most part. See [TODO](#todo) for future implementations.
 - [Usage](#usage)
   - [With networking](#with-networking)
   - [Without networking](#without-networking)
-- [Docker](#docker)
-- [TODO](#todo)
 
 ## Files and structure
 
@@ -115,14 +120,3 @@ and start over whenever you want to.
 - Comment it out after the second run and try to mine some blocks with the provided testing script.
 - Similar to the first option, start `blockchain_db_server.py` in `src` to serve as a web page and view the result on the web
 or just print it using the console.  
-
-## Docker
-
-- This is a work in progress. Currently having difficulty connecting to mongodb database.
-
-## TODO
-
-- Dockerize everything
-- Introduce networking with multiple nodes. For now, it only works with one node, which is the local host.
-- Introduce Wallet
-- Introduct Attack.
