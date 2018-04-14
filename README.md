@@ -11,12 +11,24 @@ implemented and documented in the source code.
 
 It is done for the most part. Below are ideas for future implementations.
 
+### Tasks
+
+- [x] Model Bitcoin's blockchain structure 
+- [x] Implement Proof of Work, nonce, difficulty
+- [x] Enable transactions
+- [x] Implement Merkle Tree
+- [x] Introduce mining mechanics 
+- [x] Introduce block reward
+- [x] Remember elapsed time and hash power metrics for later analytics
+- [x] Expose RESTful APIs, with simple UI
+- [x] Store the full chain in mongodb
+
 ### Ideas
 
-- [ ] Docker: Currently having difficulty connecting to mongodb database.
-- [ ] Introduce networking with multiple nodes. For now, it only works with one node, which is the local host.
-- [ ] Introduce Wallet
-- [ ] Introduct Attack.
+- [ ] Docker: Currently having difficulty connecting to mongodb database
+- [ ] Introduce networking with multiple nodes. For now, it only works with one node, which is the local host
+- [ ] Introduce Walle
+- [ ] Introduct Attack
 
 ## Table of Contents
 
