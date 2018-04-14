@@ -1,5 +1,7 @@
 # blockchain-db
 
+![Shippable](https://img.shields.io/shippable/5444c5ecb904a4b21567b0ff.svg)
+
 > Blockchain + MongoDB = BlockchainDB, aka blockchain-db
 
 **blockchain-db** is Blockchain's implementation. It uses MongoDB as a database
