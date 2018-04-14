@@ -1,6 +1,8 @@
 # blockchain-db
 
-![Shippable](https://img.shields.io/shippable/5444c5ecb904a4b21567b0ff.svg)
+![build-success](https://img.shields.io/badge/build-success-brightgreen.svg)
+![test-passing](https://img.shields.io/badge/test-passing-brightgreen.svg)
+![status-stable](https://img.shields.io/badge/status-stable-green.svg)
 
 > Blockchain + MongoDB = BlockchainDB, aka blockchain-db
 
