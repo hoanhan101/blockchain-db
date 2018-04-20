@@ -31,8 +31,8 @@ It is done for the most part. Below are ideas for future implementations.
 
 - [ ] Docker: Currently having difficulty connecting to mongodb database
 - [ ] Introduce networking with multiple nodes. For now, it only works with one node, which is the local host
-- [ ] Introduce Walle
-- [ ] Introduct Attack
+- [ ] Introduce Wallet
+- [ ] Introduce Attack
 
 ## Table of Contents
 
@@ -51,7 +51,7 @@ It is done for the most part. Below are ideas for future implementations.
 
 ### blockchain_db.py
 
-This file contains the main BlockchainDB's logic. I am using `pymongo` to connect with mongodb
+This file contains the main BlockchainDB logic. I am using `pymongo` to connect with mongodb
 database named `blockchain` and the `block` collection. Whenever a new bock is mined, it will
 write to the database.  
 
@@ -112,7 +112,7 @@ Endpoint | Description
 --- | ---
 `/reset` | Drop the database and create a genesis block
 `/mine/<int:number>` | Mine a number of blocks over network
-`/view/chain` | View the full BlockChain
+`/view/chain` | View the whole blockchain
 `/view/last_blocks/<int:number>` | View some number of last mined blocks
 `/view/last_block` | View the last mined block 
 `/view/genesis_block` | View the genesis block
