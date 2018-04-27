@@ -131,7 +131,7 @@ and start over whenever you want to.
 
 #### Without networking
 
-- In `test`, start `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
+- Use `blockchain_db_test.py` to create an instance of BlockchainDB to mine some blocks.
 - Execute `reset()` only once when you start to drop the old database and create a genesis block.
 - Comment it out after the second run and try to mine some blocks with the provided testing script.
 - Similar to the first option, start `blockchain_db_server.py` in `src` to serve as a web page and view the result on the web
