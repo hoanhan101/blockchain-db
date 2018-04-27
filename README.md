@@ -29,7 +29,7 @@ It is done for the most part. Below are ideas for future implementations.
 
 ### Ideas
 
-- [ ] Docker: Currently having difficulty connecting to mongodb database
+- [ ] Docker: Having difficulty connecting to mongodb database
 - [ ] Introduce networking with multiple nodes. For now, it only works with one node, which is the local host
 - [ ] Introduce Wallet
 - [ ] Introduce Attack
@@ -120,6 +120,14 @@ Endpoint | Description
 `/view/top/<int:number>/<string:state>` | View top numbers of blocks for a given state
 
 ## Usage
+
+#### Install requirements
+
+**Mac OS**
+
+```
+./install_requirements.sh
+```
 
 #### With networking
 
