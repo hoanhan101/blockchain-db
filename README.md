@@ -11,6 +11,8 @@ management system to store blocks' metadata. Other interesting technical
 details such as merkle tree, nonce, difficulty, and transactions are also
 implemented and documented in the source code.
 
+![Demo](demo.png)
+
 ## Project Status
 
 It is done for the most part. Below are ideas for future implementations.
