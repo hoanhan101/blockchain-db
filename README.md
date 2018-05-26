@@ -31,7 +31,7 @@ It is done for the most part. Below are ideas for future implementations.
 
 ### Ideas
 
-- [ ] Docker: Currently having difficulty connecting to mongodb database
+- [ ] Dockerize the project
 - [ ] Introduce networking with multiple nodes. For now, it only works with one node, which is the local host
 - [ ] Introduce Wallet
 - [ ] Introduce Attack
